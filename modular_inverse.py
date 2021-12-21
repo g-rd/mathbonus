@@ -43,13 +43,15 @@ def extended_eucleidian(a, b):
 def modular_inverse(a, mod):
     _gcd = extended_eucleidian(mod, a)
     if not _gcd[-1][2] == 1:
+        # there exists an inverse only if the numbers are relatively prime.
         print("There is no inverse")
         return None
     else:
         if _gcd[-2][-1] < 0:
+            # return a positive inverse.
             return mod + _gcd[-2][-1]
         return _gcd[-2][-1]
 
 
-inverse = modular_inverse(3, 7)
+inverse = modular_inverse(4, 177)
 print(f"inverse: {inverse}")
