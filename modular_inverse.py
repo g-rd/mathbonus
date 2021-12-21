@@ -1,3 +1,6 @@
+from math import gcd
+
+
 def extended_eucleidian(a, b):
     results = list()
 
@@ -15,11 +18,9 @@ def extended_eucleidian(a, b):
 
         # Python way to divide without remainder
         q = left // remainder
-        print(q)
-
         # Coefficient Si+1 = Si-1 - q*Si
         si = s0 - q * s1
-        print(f"s0:{s0} - q:{q} * s1:{s1} = {si}, remainder: {remainder}")
+        # print(f"s0:{s0} - q:{q} * s1:{s1} = {si}, remainder: {remainder}")
         s0 = s1
         s1 = si
 
@@ -36,15 +37,19 @@ def extended_eucleidian(a, b):
             recursive(remainder, new_remainder)
 
     recursive(a, b)
-    print(results)
     return results
 
 
 def modular_inverse(a, mod):
-    gcd = extended_eucleidian(mod, a)
-    return gcd[-2][-1]
+    _gcd = extended_eucleidian(mod, a)
+    if not _gcd[-1][2] == 1:
+        print("There is no inverse")
+        return None
+    else:
+        if _gcd[-2][-1] < 0:
+            return mod + _gcd[-2][-1]
+        return _gcd[-2][-1]
 
 
-inverse = modular_inverse(3, 8)
-#
-print(inverse)
+inverse = modular_inverse(3, 7)
+print(f"inverse: {inverse}")
